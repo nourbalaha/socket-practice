@@ -24,7 +24,11 @@ app.get("/login", function(req, res) {
   res.render("login");
 });
 app.get("/room", function(req, res) {
-  res.render("room",{nickname,room});
+  if(nickname!==""&&room!==""){
+    res.render("room",{nickname,room});
+  } else {
+    res.render("login");
+  }
 });
 app.post("/room", function(req, res) {
   nickname = req.body.nickname;
@@ -34,12 +38,13 @@ app.post("/room", function(req, res) {
 
 const rooms = []
 const clients = [];
-const client = {};
+let client;
 io.on("connection", function(socket) {
-  Object.assign(client, {nickname,room,id:socket.id,connected: socket.connected})
+  client = new Object({nickname,room,id:socket.id,connected: socket.connected})
   clients.push(client); 
   console.log("a user connected");
   console.log(clients.filter(client=>client.connected).length)
+  io.emit("clients",clients);
 
   socket.join(room, () => {
     io.to(room).emit('a new user has joined the room');
@@ -56,7 +61,8 @@ io.on("connection", function(socket) {
 socket.on("disconnect", function() {
   clients.splice(clients.indexOf(client), 1);
     console.log("user disconnected");
-    console.log(clients.filter(client=>client.connected).length)
+    console.log(clients.filter(client=>client.connected).length);
+    io.emit("clients",clients);
   });
 });
 
