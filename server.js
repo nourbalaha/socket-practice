@@ -24,21 +24,25 @@ app.get("/login", function(req, res) {
   res.render("login");
 });
 app.get("/room", function(req, res) {
-  res.render("room");
+  res.render("room",{nickname,room});
 });
 app.post("/room", function(req, res) {
-  console.log(req.body)
   nickname = req.body.nickname;
   room = req.body.room;
-  res.render("room");
+  res.render("room",{nickname,room});
 });
 
+var clients = [];
+var client = {};
 io.on("connection", function(socket) {
+  Object.assign(client, {nickname,room,id:socket.id,connected: socket.connected})
+  clients.push(client); 
   console.log("a user connected");
+  console.log(clients.filter(client=>client.connected).length)
 
   socket.join(room, () => {
     let rooms = Object.keys(socket.rooms);
-    console.log(rooms); // [ <socket.id>, room ]
+    console.log(socket.connected); // [ <socket.id>, room ]
     io.to(room).emit('a new user has joined the room'); // broadcast to everyone in the room
   });
 
@@ -50,8 +54,10 @@ io.on("connection", function(socket) {
     socket.broadcast.to(room).emit("join", name + " has joined the chat");
   });
 
-  socket.on("disconnect", function() {
+socket.on("disconnect", function() {
+  clients.splice(clients.indexOf(client), 1);
     console.log("user disconnected");
+    console.log(clients.filter(client=>client.connected).length)
   });
 });
 

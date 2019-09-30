@@ -1,15 +1,20 @@
-<form action="/room" method="post">
-    <label for="nickname">nickname</label>
-    <input type="text" name="nickname" id="nickname">
-    <label for="room">room</label>
-    <input type="text" name="room" id="room">
-    <button type="submit">login</button>
+<form action="/room" method="post" class="w-25 mx-auto mt-5">
+    <div class="form-group">
+        <label for="nickname">Nickname:</label>
+        <input type="text" name="nickname" id="nickname" class="form-control" placeholder="Enter a nickname">
+    </div>
+    <div class="form-group">
+        <label for="room">Room:</label>
+        <input type="text" name="room" id="room" class="form-control" placeholder="Enter a room name">
+    </div>
+    <button type="submit" class="btn btn-primary btn-block">Enter</button>
 </form>
+
 <script>
-    document.addEventListener("submit",()=>{
+    document.addEventListener("submit", () => {
         const nickname = document.getElementById("nickname").value;
         const room = document.getElementById("room").value;
-        sessionStorage.setItem("nickname",nickname);
-        sessionStorage.setItem("room",room);
+        sessionStorage.setItem("nickname", nickname);
+        sessionStorage.setItem("room", room);
     })
 </script>
