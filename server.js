@@ -1,7 +1,12 @@
-var app = require("express")();
-var http = require("http").createServer(app);
-var io = require("socket.io")(http);
-var bodyParser = require("body-parser");
+const app = require("express")();
+const http = require("http").createServer(app);
+const io = require("socket.io")(http);
+const bodyParser = require("body-parser");
+const ejs = require("ejs");
+const expressLayouts = require('express-ejs-layouts');
+
+app.set("view engine","ejs");
+app.use(expressLayouts);
 
 let room = "";
 let nickname = "";
@@ -10,19 +15,19 @@ app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json())
 
 app.get("/", function(req, res) {
-  res.sendFile(__dirname + "/start.html");
+  res.render("index");
 });
 app.get("/login", function(req, res) {
-  res.sendFile(__dirname + "/login.html");
+  res.render("login");
 });
 app.get("/index", function(req, res) {
-  res.sendFile(__dirname + "/index.html");
+  res.render("room");
 });
 app.post("/index", function(req, res) {
   console.log(req.body)
   nickname = req.body.nickname;
   room = req.body.room;
-  res.sendFile(__dirname + "/index.html");
+  res.render("room");
 });
 
 io.on("connection", function(socket) {

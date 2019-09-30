@@ -1,0 +1,16 @@
+<form action="/index" method="post">
+    <label for="nickname">nickname</label>
+    <input type="text" name="nickname" id="nickname">
+    <label for="room">room</label>
+    <input type="text" name="room" id="room">
+    <button type="submit">login</button>
+</form>
+<script>
+    document.addEventListener("submit",()=>{
+        const nickname = document.getElementById("nickname").value;
+        const room = document.getElementById("room").value;
+        sessionStorage.setItem("nickname",nickname);
+        sessionStorage.setItem("room",room);
+        window.location.replace("http://localhost:3000/index");
+    })
+</script>
