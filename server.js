@@ -32,8 +32,9 @@ app.post("/room", function(req, res) {
   res.render("room",{nickname,room});
 });
 
-var clients = [];
-var client = {};
+const rooms = []
+const clients = [];
+const client = {};
 io.on("connection", function(socket) {
   Object.assign(client, {nickname,room,id:socket.id,connected: socket.connected})
   clients.push(client); 
@@ -41,9 +42,7 @@ io.on("connection", function(socket) {
   console.log(clients.filter(client=>client.connected).length)
 
   socket.join(room, () => {
-    let rooms = Object.keys(socket.rooms);
-    console.log(socket.connected); // [ <socket.id>, room ]
-    io.to(room).emit('a new user has joined the room'); // broadcast to everyone in the room
+    io.to(room).emit('a new user has joined the room');
   });
 
   socket.on("chat message", function(msg) {

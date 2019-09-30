@@ -1,54 +1,59 @@
 <!-- links to css file -->
 <link rel="stylesheet" href="/assets/style.css">
 <!-- navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" style="height:60px;">
-  <a class="navbar-brand" href="#">Chat App</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+<div class="wrap">
+<header>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="#">Chat App</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <%= nickname %>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">Connected</a>
+            <a class="dropdown-item" href="#">Room: <%= room %></a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Profile</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-          <%= nickname %>
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Connected</a>
-          <a class="dropdown-item" href="#">Room: <%= room %></a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Profile</a>
-        </div>
-      </li>
-    </ul>
-  </div>
-</nav>
-
-<div style="display: grid; grid-template-columns: 25% 75%; padding:10px; width:80vw; margin: 60px auto 0 auto; height: 90vh">
   <aside class="bg-primary" style="overflow:scroll">
 
   </aside>
 
   <main>
     <!-- list -->
-    <div id="" class="bg-light" style="overflow:scroll; height: 90%;">
+    <div id="" class="bg-light" style="overflow:scroll; height: 100%;">
       <ul id="messages" class="list-group"></ul>
     </div>
 
-    <!-- //form -->
-    <form action="">
-      <div class="input-group my-3">
-        <input id="m" autocomplete="off" type="text" class="form-control" placeholder="Enter a message"
-          aria-label="Recipient's username" aria-describedby="button-addon2">
-        <div class="input-group-append">
-          <button class="btn btn-outline-secondary" type="button" id="button-addon2">Send</button>
-        </div>
-      </div>
-    </form>
   </main>
+  
+  <footer class="bg-dark">
+      <!-- //form -->
+      <form action="" class="fixed-bottom bg-dark">
+        <div class="input-group my-3">
+          <input id="m" autocomplete="off" type="text" class="form-control" placeholder="Enter a message"
+            aria-label="Recipient's username" aria-describedby="button-addon2">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button" id="button-addon2">Send</button>
+          </div>
+        </div>
+      </form>
 
+  </footer>
 </div>
 
 <!-- scripts -->
