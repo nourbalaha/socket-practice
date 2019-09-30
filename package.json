@@ -9,6 +9,7 @@
   "author": "Nour Balaha",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "express": "^4.15.2",
     "socket.io": "^2.3.0"
   }
