@@ -1,4 +1,5 @@
-const app = require("express")();
+const express = require("express");
+const app = express();
 const http = require("http").createServer(app);
 const io = require("socket.io")(http);
 const bodyParser = require("body-parser");
@@ -7,6 +8,8 @@ const expressLayouts = require('express-ejs-layouts');
 
 app.set("view engine","ejs");
 app.use(expressLayouts);
+
+app.use(express.static(__dirname + '/public'));
 
 let room = "";
 let nickname = "";
@@ -20,10 +23,10 @@ app.get("/", function(req, res) {
 app.get("/login", function(req, res) {
   res.render("login");
 });
-app.get("/index", function(req, res) {
+app.get("/room", function(req, res) {
   res.render("room");
 });
-app.post("/index", function(req, res) {
+app.post("/room", function(req, res) {
   console.log(req.body)
   nickname = req.body.nickname;
   room = req.body.room;

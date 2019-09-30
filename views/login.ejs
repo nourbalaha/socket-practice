@@ -1,4 +1,4 @@
-<form action="/index" method="post">
+<form action="/room" method="post">
     <label for="nickname">nickname</label>
     <input type="text" name="nickname" id="nickname">
     <label for="room">room</label>
@@ -11,6 +11,5 @@
         const room = document.getElementById("room").value;
         sessionStorage.setItem("nickname",nickname);
         sessionStorage.setItem("room",room);
-        window.location.replace("http://localhost:3000/index");
     })
 </script>
