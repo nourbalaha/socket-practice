@@ -28,7 +28,7 @@ $(function () {
 
     
     socket.on('connect', function () {
-      data = {name: nickname, userId: socket.id};
+      data = {name: nickname, userId: socket.id, room};
       socket.emit('setSocketId', data);
 
 
