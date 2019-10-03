@@ -3,9 +3,20 @@ $(function () {
     var nickname = sessionStorage.getItem("nickname");
     var room = sessionStorage.getItem("room");
 
+    // when a client connects to a server
+    socket.on('connect', function () {
+      data = {name: nickname, userId: socket.id, room};
+      socket.emit('setSocketId', data);
+      socket.emit("join", nickname);
+      socket.on('join', function (data) {
+        $("#messages").append($("<li>").addClass("list-group-item list-group-item-success mx-5 my-1").text(data));
+      })
+    });
+
+    // when submittnig a msg
     $("form").submit(function (e) {
       e.preventDefault();
-      socket.emit("chat message", { msg: $("#m").val(), nickname, date:moment().format('LT')});
+      socket.emit("chat message", { msg: $("#m").val(), nickname, room, date:moment().format('LT')});
       $("#m").val("");
       return false;
     });
@@ -27,14 +38,4 @@ $(function () {
     });
 
     
-    socket.on('connect', function () {
-      data = {name: nickname, userId: socket.id, room};
-      socket.emit('setSocketId', data);
-
-
-      socket.emit("join", nickname);
-      socket.on('join', function (data) {
-        $("#messages").append($("<li>").addClass("list-group-item list-group-item-success mx-5 my-1").text(data));
-      })
-    });
   });

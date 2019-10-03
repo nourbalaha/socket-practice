@@ -20,23 +20,22 @@ app.use(bodyParser.json())
 app.get("/", function(req, res) {
   res.render("index");
 });
+
 app.get("/login", function(req, res) {
   res.render("login");
 });
+
 app.get("/room", function(req, res) {
-  if(nickname!==""&&room!==""){
     res.render("room",{nickname,room});
-  } else {
-    res.render("login");
-  }
 });
+
 app.post("/room", function(req, res) {
   nickname = req.body.nickname;
   room = req.body.room;
   res.render("room",{nickname,room});
 });
 
-require("./socket")(io,room);
+require("./socket")(io);
 
 http.listen(3000, function() {
   console.log("listening on *:3000");
